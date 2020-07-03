@@ -41,8 +41,8 @@ document.querySelector(".btn-hold").addEventListener("click", () => {
  	if(gamePlaying){
  		scores[activePlayer] += roundScore;
 	 	document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
-	 	
-	 	if(scores[activePlayer] >= 20) {
+	 	var finalScore = document.querySelector(".final-score").value;
+	 	if(scores[activePlayer] >= finalScore) {
 	 		document.querySelector("#name-" + activePlayer).textContent = "Winner!";
 	 		document.querySelector(".dice").style.display = "none";
 	 		document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
@@ -60,15 +60,15 @@ document.querySelector(".btn-hold").addEventListener("click", () => {
 document.querySelector(".btn-new").addEventListener("click", init);
 
 
+// This function is the starting point of the game.
 function init() {
 	scores = [0,0];
 	activePlayer = 0;
 	roundScore = 0;
 
 
-
 	//document.querySelector("#current-" + activePlayer).textContent = dice;
-
+	document.querySelector(".final-score").value = "Score";
 	document.querySelector(".dice").style.display = "none";
 
 	document.getElementById("score-0").textContent = "0";
