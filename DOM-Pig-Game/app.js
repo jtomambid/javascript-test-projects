@@ -9,29 +9,53 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer;
+var scores, roundScore, activePlayer, finalScore;
 var gamePlaying = true;
 
 
 init();
 
+var lastDice;
 
 document.querySelector(".btn-roll").addEventListener("click", function() {
 
 	if(gamePlaying){
-		var dice = Math.floor(Math.random() * 6) + 1;
-		var diceDOM = document.querySelector(".dice");
-		diceDOM.style.display = "block";
-		diceDOM.src = "dice-" + dice + ".png";
+		//Generate Random Number
+		var dice1 = Math.floor(Math.random() * 6) + 1;
+		var dice2 = Math.floor(Math.random() * 6) + 1;
 
-		if(dice !== 1) {
+		//Display the result
+		var dice1DOM = document.querySelector(".dice");
+		var dice2DOM = document.querySelector(".dice1");
+		dice1DOM.style.display = "block";
+		dice2DOM.style.display = "block";
+		dice1DOM.src = "dice-" + dice1 + ".png";
+		dice2DOM.src = "dice-" + dice2 + ".png";
+
+		//Get the input for the max score. If there's no input the max score will be set to 100
+		finalScore = document.querySelector(".final-score").value;
+		if(finalScore === "")
+			document.querySelector(".final-score").value = 100;
+		
+		
+		if(dice1 === 6 && lastDice === 6  || dice2 === 6 && lastDice === 6){
+			//Player looses score
+			scores[activePlayer] = 0;
+			document.querySelector("#score-" + activePlayer).textContent = 0;
+			nextPlayer();
+		//Update the round score If the rolled number is not one
+		} else if(dice1 !== 1 && dice2 !== 1) {
 			// Add score
-			roundScore += dice;
+			roundScore += dice1 + dice2;
 			document.querySelector("#current-" + activePlayer).textContent = roundScore;
 		} else {
 			//Next Player
 			nextPlayer();
 		}
+
+		lastDice = dice1;
+
+	
 	}	
 	
 
@@ -41,10 +65,10 @@ document.querySelector(".btn-hold").addEventListener("click", () => {
  	if(gamePlaying){
  		scores[activePlayer] += roundScore;
 	 	document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
-	 	var finalScore = document.querySelector(".final-score").value;
-	 	if(scores[activePlayer] >= finalScore) {
+ 		if(scores[activePlayer] >= finalScore) {
 	 		document.querySelector("#name-" + activePlayer).textContent = "Winner!";
 	 		document.querySelector(".dice").style.display = "none";
+	 		document.querySelector(".dice1").style.display = "none";
 	 		document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
 	 		document.querySelector(".player-" + activePlayer + "-panel").classList.remove("active");
 	 		gamePlaying = false;
@@ -60,7 +84,7 @@ document.querySelector(".btn-hold").addEventListener("click", () => {
 document.querySelector(".btn-new").addEventListener("click", init);
 
 
-// This function is the starting point of the game.
+// This function is the starting point of the game. it will initialized all elements into 0
 function init() {
 	scores = [0,0];
 	activePlayer = 0;
@@ -70,6 +94,7 @@ function init() {
 	//document.querySelector("#current-" + activePlayer).textContent = dice;
 	document.querySelector(".final-score").value = "Score";
 	document.querySelector(".dice").style.display = "none";
+	document.querySelector(".dice1").style.display = "none";
 
 	document.getElementById("score-0").textContent = "0";
 	document.getElementById("score-1").textContent = "0";
@@ -87,7 +112,6 @@ function init() {
 
 
 function nextPlayer() {
-	//Next Player
 	activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
 	roundScore = 0;
 	document.querySelector("#current-0").textContent = "0";
@@ -100,4 +124,5 @@ function nextPlayer() {
 	//document.querySelector(".player-1-panel").classList.add("active");
 
 	document.querySelector(".dice").style.display = "none";
+	document.querySelector(".dice1").style.display = "none";
 }
