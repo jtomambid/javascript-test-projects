@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+$fontRoboto: 'Roboto Mono', monospace;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $fontRoboto;
+    color: #fff;
+    background: #ff4a4a;    
+}
+main {
+        text-align: center;
+}
+
+.container {
+    max-width: 100%;
+}
+section.time {
+    max-width: 90%;
+    padding: 20px;
+    margin:  50px auto;
+    border-radius: 20px;
+    background: #ff4a4a;
+    box-shadow:  20px 20px 60px #d93f3f, 
+                -20px -20px 60px #ff5555;
+
+    .time-buttons{
+        padding: 0 0 20px 0;
+
+        button {
+            background: none;
+            color: #fff;
+        }
+    }
+
+    .timer {
+        padding: 0 0 20px 0;
+        
+        h1 {
+            font-size: 5em;
+        }
+    }
+
+    #btn-start {
+        width: 40%;
+        padding: 20px;
+        font-weight: bold;
+        color: #ff4a4a;
+        border-radius: 4px;
+        box-shadow: rgb(235, 235, 235) 0px 6px 0px;
+        transition: color 0.5s ease-in-out 0s;
+        
+    }
+}
+
+
+
+
+button {
+    outline: none;
+    padding: 2px 10px;
+    font-size: 0.9em;
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+    
+
+
+
+
+
